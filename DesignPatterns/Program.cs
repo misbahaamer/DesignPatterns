@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
+using DesignPatterns.SOLIDPrinciples;
 
 namespace DesignPatterns
 {
@@ -12,73 +13,40 @@ namespace DesignPatterns
     /// 
     /// </summary>
     /// <param name="args"></param>
-    public class Journal
-     {
-         private readonly  List<string> entries = new List<string>();
-
-         private static int count = 0;
-
-         public int AddEntry(string text)
-         {
-             entries.Add(($"{++count} : {text}"));
-             return count;
-         }
-
-         public void RemoveEntry(int index)
-         {
-             entries.RemoveAt(index);
-         }
-
-         public override string  ToString()
-         {
-             return string.Join(Environment.NewLine, entries);
-         }
-
-        #region Violation of Single Responsibility Rule because Class Journal is also responsible for persistant methods here other than Journal
-        public void SaveToFile(string filename)
-        {
-            File.WriteAllText(filename, ToString());
-        }
-
-        public static Journal LoadFromFile(string filename)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void LoadFromURI(Uri Uri)
-        {
-            throw new NotImplementedException();
-        } 
-        #endregion
-    }
-
-    public class Persistance
-    {
-        public void SaveToFile(Journal j, string filename, bool overwrite = false)
-        {
-            if (overwrite || !File.Exists(filename))
-            {
-                File.WriteAllText(filename, j.ToString());
-            }
-        }
-
-    }
-
-
+    
     public class Program
     {
         
         static void Main(string[] args)
         {
-            var j  = new Journal();
+            var apple = new Product("Apple", Color.Green, Size.Small);
+            var tree  = new Product("Tree", Color.Green, Size.Large);
+            var house = new Product("House", Color.Blue, Size.Large);
 
-            j.AddEntry("i ate food");
-            j.AddEntry("i slept");
+            Product[] products = { apple, tree, house};
 
-            Console.WriteLine(j);
+            
+            Console.WriteLine("Green products (old method): ");
+            foreach (var p in ProductFilter.FilterByColor(products, Color.Green))
+            {
+                Console.WriteLine("Green Product is: " + p.Name);
+            }
 
-            var p = new Persistance();
+            Console.WriteLine("Green Products(new): ");
 
+            var bf = new BetterFilter();
+
+            foreach (var p in bf.Filter(products, new ColorSpecification(color:Color.Green)))
+            {
+                Console.WriteLine("Green Product is : " + p.Name);
+            }
+
+            Console.WriteLine("Large Blue Items:");
+
+            foreach (var p in bf.Filter(products, new AndSpecification<Product>(new ColorSpecification(Color.Blue), new SIzeSpecification(Size.Large) )))
+            {
+                Console.WriteLine("Large Blue item is: " + p.Name);
+            }
 
         }
 
