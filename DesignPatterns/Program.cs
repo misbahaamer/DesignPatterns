@@ -16,38 +16,25 @@ namespace DesignPatterns
     
     public class Program
     {
-        
+        public static int Area(Rectangle r) => r.Height * r.Width;
+
         static void Main(string[] args)
         {
-            var apple = new Product("Apple", Color.Green, Size.Small);
-            var tree  = new Product("Tree", Color.Green, Size.Large);
-            var house = new Product("House", Color.Blue, Size.Large);
+            Rectangle rc = new Rectangle(2,3);
+            Console.WriteLine($"{rc} has area {Area(rc)}");
 
-            Product[] products = { apple, tree, house};
+            Square sq = new Square();
+            sq.Width = 4;
 
-            
-            Console.WriteLine("Green products (old method): ");
-            foreach (var p in ProductFilter.FilterByColor(products, Color.Green))
-            {
-                Console.WriteLine("Green Product is: " + p.Name);
-            }
+            Console.WriteLine($"{sq} has area : {Area(sq)}");
 
-            Console.WriteLine("Green Products(new): ");
+            //if we say square is also a rectangle and reference a square by a rectangle then nothing should change but obviously the result is not the same
+            Rectangle sc = new Square();
+            sc.Width = 4;
 
-            var bf = new BetterFilter();
-
-            foreach (var p in bf.Filter(products, new ColorSpecification(color:Color.Green)))
-            {
-                Console.WriteLine("Green Product is : " + p.Name);
-            }
-
-            Console.WriteLine("Large Blue Items:");
-
-            foreach (var p in bf.Filter(products, new AndSpecification<Product>(new ColorSpecification(Color.Blue), new SIzeSpecification(Size.Large) )))
-            {
-                Console.WriteLine("Large Blue item is: " + p.Name);
-            }
-
+            Console.WriteLine($"{sq} has area : {Area(sc)}");
+            //because when we change the width we are only change the width , not the height
+            //to be able to upcast the square, the fix is to make the properties virtual and replace the new keyword with override in inheritance
         }
 
        

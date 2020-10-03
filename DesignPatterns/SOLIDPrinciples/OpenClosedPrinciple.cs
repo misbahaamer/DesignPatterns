@@ -6,6 +6,7 @@ namespace DesignPatterns.SOLIDPrinciples
 {
     class OpenClosedPrinciple
     {
+        //any class should be open for extension but should be claosed for modification
     }
 
     public enum Color
