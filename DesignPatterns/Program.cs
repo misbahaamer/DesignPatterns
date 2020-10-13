@@ -15,8 +15,8 @@ namespace DesignPatterns
         
         static void Main(string[] args)
         {
-            var me = Person.New.Called("Misbah").WorksAsA("Dev").Build();
-            Console.WriteLine(me);
+            var me = new FunctionalPersonBuilder().Called("Misbah").WorksAs("Dev").Build();
+            Console.WriteLine(me.Name +","+ me.Position);
 
         }
 
