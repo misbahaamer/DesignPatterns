@@ -33,23 +33,23 @@ namespace DesignPatterns.Builder
     {
         public PersonJobBuilder(Person person)
         {
-            this.person = person;
+            this.person1 = person;
         }
 
         public PersonJobBuilder At(string companyName)
         {
-            person.CompanyName = companyName;
+            person1.CompanyName = companyName;
             return this;
         }
 
         public PersonJobBuilder AsA(string position)
         {
-            person.Position = position;
+            person1.Position = position;
             return this;
         }
         public PersonJobBuilder Earning(int amount)
         {
-            person.AnnualIncome = amount;
+            person1.AnnualIncome = amount;
             return this;
         }
 
