@@ -5,3 +5,5 @@
 /.vs
 /DesignPatterns/.vs/DesignPatterns/v16
 /DesignPatterns/.vs/DesignPatterns/DesignTimeBuild
+/bin
+/obj

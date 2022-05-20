@@ -10,7 +10,7 @@ namespace DesignPatterns.Builder
         //fluent builder inheritance with recursive generics
     }
 
-    public class Person
+    public partial class Person
     {
         public string Name;
         public string Position;
@@ -20,12 +20,12 @@ namespace DesignPatterns.Builder
 
         }
         public static Builder New => new Builder();
-        public override string ToString()
-        {
-            return $"{nameof(Name)} : {Name}, {nameof(Position)}: {Position}";
-        }
+        //public override string ToString()
+        //{
+        //    return $"{nameof(Name)} : {Name}, {nameof(Position)}: {Position}";
+        //}
     }
-    public abstract class PersonBuilder
+    public abstract partial class PersonBuilder
     {
         protected Person person = new Person();
 
