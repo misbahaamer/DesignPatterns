@@ -4,7 +4,7 @@ using System.Configuration;
 using System.IO;
 using System.Linq;
 using DesignPatterns.Builder;
-
+using DesignPatterns.Creational.Singleton;
 
 namespace DesignPatterns
 {
@@ -15,7 +15,10 @@ namespace DesignPatterns
         
         static void Main(string[] args)
         {
-            var pb = new PersonBuilder1();
+            //singleton
+            var db = SingletonDatabase.Instance;
+            var city = "Tokyo";
+            Console.WriteLine($"{city} : {db.GetPopulation(city)}");
 
 
         }
